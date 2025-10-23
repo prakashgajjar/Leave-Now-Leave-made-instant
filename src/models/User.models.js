@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 const userSchema = new mongoose.Schema(
   {
     name: {
@@ -29,13 +28,28 @@ const userSchema = new mongoose.Schema(
     hostel: { type: String, default: "" },
     year: { type: Number, default: 1 },
 
-    // 👇 Leave history embedded in user profile
-    leaves: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Leave",
-    }],
+    leaves: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Leave",
+      },
+    ],
 
-    // optional summary stats
+    notifications: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Notification",
+      },
+    ],
+
+    status: {
+      type: String,
+      enum: {
+        values: ["active", "verified", "blocked"],
+      },
+      default: "active",
+    },
+
     leaveStats: {
       totalApplied: { type: Number, default: 0 },
       totalApproved: { type: Number, default: 0 },

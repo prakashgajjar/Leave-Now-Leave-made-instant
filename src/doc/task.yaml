@@ -1,0 +1,18 @@
+1: make a login page[done]
+2: make a signup page[done]
+3: make services for it and stucture all services 
+4: make a  backend with JWt auth and refresh token
+5: otp signup and login
+
+6: make a home poge and make a proepr schemas = for user 
+7: make a backend for home page 
+8: make a profile page and backend for it
+9: edit profile with backend 
+10: make a send request for leave app and backend for it
+11: make a notification system in app with proper approval backend for teacher
+
+12: all accepted application show in wordern mobile or app
+13: wordern also verify that from see in profile page
+14: test the whole app and fix bugs
+15: make it dockerize and deploy on cloud
+16: make a proper readme file for project

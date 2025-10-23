@@ -1,10 +1,10 @@
-import SignInPage from '@/components/auth/SignInPage'
+import SignUpPage from '@/components/auth/SignUpPage'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-        <SignInPage/>
+        <SignUpPage/>
     </div>
   )
 }
