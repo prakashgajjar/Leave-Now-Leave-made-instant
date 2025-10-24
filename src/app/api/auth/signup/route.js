@@ -8,18 +8,18 @@ export async function POST(req) {
   try {
     await dbConnect();
     const { name, email, password, role } = await req.json();
-    console.log(email, password, role);
+    // console.log(email, password, role);
 
     if (!email || !password || !role || !name) {
       return NextResponse.json(
         { message: "All fields are required" },
-        { status: 400 }
+        { status: 400,flag:flase }
       );
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const expiry = new Date(Date.now() + 10 * 60 * 1000);
-    console.log("Your OTP is:", otp);
+    // console.log("Your OTP is:", otp);
 
     await OtpModel.create({
       email,
@@ -37,8 +37,9 @@ export async function POST(req) {
     );
 
     const response = NextResponse.json({
-      status: 201,
+      status: 200,
       message: "user created",
+      flag:true
     });
 
     response.cookies.set("ln_auth", token, {
@@ -59,6 +60,6 @@ export async function POST(req) {
     return response;
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message }, { status: 500,flag:flase });
   }
 }

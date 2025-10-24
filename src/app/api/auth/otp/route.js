@@ -4,12 +4,13 @@ import OtpModels from "@/models/Otp.models";
 import User from "@/models/User.models";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
 
 export async function POST(req) {
   try {
     await dbConnect();
-    const { otp } = await req.json();
-    console.log(otp);
+    const otp = await req.json();
+    // console.log(otp);
 
     if (!otp) {
       return NextResponse.json({ message: "Otp is required" }, { status: 400 });
@@ -28,19 +29,27 @@ export async function POST(req) {
       createdAt: -1,
     });
 
-    console.log(otpUser);
+    // console.log(otpUser);
 
     if (!otpUser) {
-      return NextResponse.json({ message: "User not found" }, { status: 404 });
+      return NextResponse.json(
+        { message: "User not found" },
+        { status: 404, flag: false }
+      );
     }
 
-    if (otpUser.otp !== otp) {
-      return NextResponse.json({ message: "Invalid otp" }, { status: 401 });
-    }
+    console.log(otpUser.otp, otp);
 
+    if (String(otpUser.otp) !== String(otp)) {
+      return NextResponse.json(
+        { message: "Invalid otp" },
+        { status: 401, flag: false }
+      );
+    }
+    const hashed = await bcrypt.hash(password, 10);
     const user = await User.create({
       email: email,
-      password: password,
+      password: hashed,
       name: name,
       role: otpUser.role,
     });
@@ -52,8 +61,9 @@ export async function POST(req) {
     });
 
     const response = NextResponse.json({
-      status: 201,
-      message: "user created",
+      status: 200,
+      flag: true,
+      message: "Correct Otp",
     });
 
     response.cookies.set("token", token, {
@@ -67,6 +77,10 @@ export async function POST(req) {
     return response;
   } catch (error) {
     console.log(error);
-    return NextResponse.json({ message: error.message }, { status: 500 });
+    return NextResponse.json({
+      flag: false,
+      status: 500,
+      message: error.message,
+    });
   }
 }

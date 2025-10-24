@@ -1,7 +1,7 @@
 import axios from "axios";
-export const Signup = async (email, password, role) => {
+export const SignupHandle = async (email, password, role,name) => {
     try {
-        const res = await axios.post("api/auth/signin", { email, password });
+        const res = await axios.post("api/auth/signup", { email, password,role,name });
         const data = await res.data;
         return data;
     } catch (error) {

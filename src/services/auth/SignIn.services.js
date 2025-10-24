@@ -1,5 +1,5 @@
 import axios from "axios";
-export const signIn = async (email, password) => {
+export const signInHandle = async (email, password) => {
     try {
         const res = await axios.post("api/auth/signin", { email, password });
         const data = await res.data;

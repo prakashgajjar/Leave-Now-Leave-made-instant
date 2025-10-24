@@ -14,6 +14,8 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation"; // for redirecting after OTP verify
+import { SignupHandle } from "@/services/auth/SignUp.services";
+import { OtpHandle } from "@/services/auth/Otp.services";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -29,6 +31,8 @@ export default function SignUpPage() {
   const [step, setStep] = useState("signup"); // signup | otp
   const [otp, setOtp] = useState("");
   const [loading, setLoading] = useState(false);
+
+  //send data to services
 
   // Validate function
   const validate = () => {
@@ -69,27 +73,36 @@ export default function SignUpPage() {
   };
 
   // Handle sign-up submit
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
       setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-        setStep("otp");
-        setSuccess("OTP sent to your email!");
-      }, 1000);
+      const res = await SignupHandle(
+        formData.email,
+        formData.password,
+        formData.role,
+        formData.name
+      );
+      console.log(res);
+      if (res?.flag == true) setLoading(false);
+      setStep("otp");
+      setSuccess("OTP sent to your email!");
+    } else {
+      setLoading(false);
+      const error = res?.error;
+      setErrors({ error });
     }
   };
 
   // Handle OTP verification
-  const handleOtpVerify = (e) => {
+  const handleOtpVerify = async (e) => {
     e.preventDefault();
-    if (otp === "1234") {
+
+    const res = await OtpHandle(otp);
+    if (res?.flag == true) {
       setSuccess("Account created successfully! Redirecting...");
       setLoading(true);
-      setTimeout(() => {
-        router.push("/home"); // Redirect to home page
-      }, 1000);
+      router.push("/home");
     } else {
       setErrors({ otp: "Invalid OTP, please try again" });
     }
@@ -231,7 +244,11 @@ export default function SignUpPage() {
               }}
               disabled={loading}
             >
-              {loading ? <CircularProgress size={24} color="inherit" /> : "Sign Up"}
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Sign Up"
+              )}
             </Button>
           </form>
         ) : (

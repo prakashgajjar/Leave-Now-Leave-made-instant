@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
+import { signInHandle } from "@/services/auth/SignIn.services";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -53,15 +54,20 @@ export default function SignInPage() {
   };
 
   // Handle login
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
       setLoading(true);
-      setTimeout(() => {
+      const res = await signInHandle(formData?.email, formData?.password);
+      setLoading(false);
+      if (res?.flag === true) {
         setLoading(false);
         setSuccess("Login successful! Redirecting...");
-        setTimeout(() => router.push("/home"), 1200);
-      }, 1200);
+        router.push("/home");
+      } else {
+        setLoading(false);
+        setSuccess(`${res?.message || "Login failed!"}`);
+      }
     }
   };
 
@@ -168,7 +174,7 @@ export default function SignInPage() {
               fontSize="0.9rem"
               onClick={(e) => {
                 e.preventDefault();
-                alert("Forgot Password flow coming soon 💌");
+                router.push("/forgot-password")
               }}
             >
               Forgot password?
