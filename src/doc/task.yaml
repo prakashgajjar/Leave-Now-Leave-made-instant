@@ -1,8 +1,8 @@
 1: make a login page[done]
 2: make a signup page[done]
-3: make services for it and stucture all services 
-4: make a  backend with JWt auth and refresh token
-5: otp signup and login
+3: make services for it and stucture all services [done]
+4: make a  backend with JWt auth and refresh token [done]
+5: otp signup and login[done]
 
 6: make a home poge and make a proepr schemas = for user 
 7: make a backend for home page 

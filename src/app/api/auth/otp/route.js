@@ -57,7 +57,7 @@ export async function POST(req) {
     await OtpModels.deleteOne({ email: email });
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
-      expiresIn: "1h",
+      expiresIn: "7d",
     });
 
     const response = NextResponse.json({
@@ -70,7 +70,7 @@ export async function POST(req) {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       // sameSite: "strict",
-      maxAge: 20 * 60 * 10,
+      maxAge: 20 * 60 * 10 * 1000,
       path: "/",
     });
 

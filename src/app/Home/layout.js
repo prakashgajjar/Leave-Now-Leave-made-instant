@@ -11,7 +11,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Leave Now - Leave made instant",
+  title: "Leave Now - Home page",
   description: "Gec patan hostel leave managment system",
 };
 
