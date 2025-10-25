@@ -56,7 +56,7 @@ export async function POST(req) {
 
     await OtpModels.deleteOne({ email: email });
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user._id, role: user.role,email:user.email,name:user.name  }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 

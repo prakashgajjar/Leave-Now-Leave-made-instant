@@ -102,7 +102,7 @@ export default function SignUpPage() {
     if (res?.flag == true) {
       setSuccess("Account created successfully! Redirecting...");
       setLoading(true);
-      router.push("/home");
+      router.push("/v1/dashboard");
     } else {
       setErrors({ otp: "Invalid OTP, please try again" });
     }

@@ -1,9 +1,10 @@
+import ApplyLeaveForm from '@/components/ui/ApplyLeaveForm'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      page
+        <ApplyLeaveForm onBackClick={false}/>
     </div>
   )
 }

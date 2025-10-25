@@ -11,8 +11,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Leave Now - Home page",
-  description: "Gec patan hostel leave managment system",
+  title: "Student Login",
+  description: "Gec patan student login page for hostel leave ",
 };
 
 export default function RootLayout({ children }) {

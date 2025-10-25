@@ -63,7 +63,7 @@ export default function SignInPage() {
       if (res?.flag === true) {
         setLoading(false);
         setSuccess("Login successful! Redirecting...");
-        router.push("/home");
+        router.push("/v1/dashboard");
       } else {
         setLoading(false);
         setSuccess(`${res?.message || "Login failed!"}`);

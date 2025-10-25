@@ -24,7 +24,7 @@ export async function POST(req) {
       return Response.json({ message: "Invalid password" }, { status: 401 });
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ id: user._id, role: user.role,email:user.email,name:user.name }, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 

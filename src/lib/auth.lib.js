@@ -12,7 +12,7 @@ export async function getUserId() {
     const { payload } = await jwtVerify(token, secret);
 
     console.log(payload);
-    return payload.id || null;
+    return {id:payload.id, email:payload.email , name:payload.name, role:payload.role} || null;
   } catch (err) {
     console.error("Token decode error:", err);
     return null;
