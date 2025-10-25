@@ -18,7 +18,7 @@ export async function middleware(req) {
       return NextResponse.redirect(new URL("/v1/dashboard", req.url));
     }
     if (pathname == "/signup") {
-      return NextResponse.redirect(new URL("/v1/dashboard", req.url));
+      return NextResponse.redirect(new URL("/v1/dashboard/", req.url));
     }
   } else {
     if (!PUBLIC_ROUTES.includes(pathname)) {
