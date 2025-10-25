@@ -284,7 +284,6 @@ const LeaveHistoryPage = ({ onBackClick }) => {
             </div>
           </div>
 
-          {/* Leave List */}
           <div className="space-y-4">
             {filteredLeaves.length > 0 ? (
               filteredLeaves.map((leave) => (
@@ -316,7 +315,7 @@ const LeaveHistoryPage = ({ onBackClick }) => {
           </div>
         </div>
       </div>
-
+      
       {/* Modal */}
       {selectedLeave && (
         <LeaveDetailModal
